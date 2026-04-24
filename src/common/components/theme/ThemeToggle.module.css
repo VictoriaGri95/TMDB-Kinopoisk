@@ -1,0 +1,109 @@
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 64px;
+  height: 32px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: linear-gradient(135deg, #e2e8f0, #e4ecec);
+  border-radius: 50px;
+  transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+  overflow: hidden;
+}
+
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 26px;
+  width: 26px;
+  left: 3px;
+  bottom: 3px;
+  background: linear-gradient(135deg, #e4ecec, #f8fafc);
+  border-radius: 50%;
+  transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.switch input:checked + .slider {
+  background: linear-gradient(135deg, #263136, #1d1e21);
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(32px);
+  background: linear-gradient(135deg, #263136, #a3a8a8);
+
+}
+
+
+.icon {
+  font-size: 14px;
+  z-index: 2;
+  position: relative;
+  pointer-events: none;
+  transition: 0.2s ease;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+}
+
+.sun {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.moon {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+
+.switch input:checked + .slider .sun {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.switch input:checked + .slider .moon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+.switch input:focus-visible + .slider {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+
+.switch:hover .slider::before {
+  transform: scale(1.05);
+}
+
+.switch:hover input:checked + .slider::before {
+  transform: translateX(32px) scale(1.05);
+}
+
+
+.switch:active .slider::before {
+  width: 28px;
+}
+
+.switch:active input:checked + .slider::before {
+  transform: translateX(30px);
+  width: 28px;
+}

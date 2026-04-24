@@ -1,0 +1,61 @@
+.list {
+  display: flex;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list a {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+  padding: 8px 16px;
+  border-radius: 99px;
+}
+
+.list a:hover {
+  color: #5ba7bd;
+}
+
+.activeLink {
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  background-color: rgba(128, 128, 128, 0.08);
+}
+
+body.light .activeLink {
+  border-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+body.dark .activeLink {
+  border-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* На мобилках меню становится скроллируемым */
+@media (max-width: 768px) {
+  .list {
+    gap: 8px;
+  }
+
+  .list a {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 550px) {
+  .list {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .list::-webkit-scrollbar {
+    display: none;
+  }
+}
