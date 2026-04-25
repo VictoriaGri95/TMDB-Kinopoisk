@@ -1,8 +1,20 @@
+import {useFetchPopularFilmsQuery} from "@/features/films/api/filmsApi.ts";
+import {WelcomeSection} from "@/widgets/main/WelcomeSection/WelcomeSection.tsx";
+import {MoviesSection} from "@/widgets/main/MoviesSection/MoviesSection.tsx";
+
 export const MainPage = () => {
+
+  const {data: popularFilms, isLoading,} = useFetchPopularFilmsQuery({})
+
+
+  if (isLoading || !popularFilms) {
+    return <div>Loading...</div>
+  }
   return (
-    <div>
-      <h1>Main</h1>
-    </div>
+    <main>
+      <WelcomeSection popularFilms={popularFilms} />
+      <MoviesSection />
+    </main>
   );
 };
 

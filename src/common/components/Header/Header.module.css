@@ -15,12 +15,12 @@ body.dark .header {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Защита переключателя от сжатия */
+
 .header > :last-child {
   flex-shrink: 0;
 }
 
-/* Адаптивность */
+
 @media (max-width: 768px) {
   .header {
     padding: 0 20px;

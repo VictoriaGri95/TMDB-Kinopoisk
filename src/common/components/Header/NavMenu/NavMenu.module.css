@@ -36,7 +36,7 @@ body.dark .activeLink {
   background-color: rgba(255, 255, 255, 0.06);
 }
 
-/* На мобилках меню становится скроллируемым */
+
 @media (max-width: 768px) {
   .list {
     gap: 8px;

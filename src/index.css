@@ -1,16 +1,16 @@
-/* светлая тема */
+
 body.light {
   --bg: #ffffff;
   --text: #000000;
 }
 
-/* тёмная тема */
+
 body.dark {
   --bg: #1a1a1c;
   --text: #ffffff;
 }
 
-/* применяем */
+
 body {
   background-color: var(--bg);
   color: var(--text);
