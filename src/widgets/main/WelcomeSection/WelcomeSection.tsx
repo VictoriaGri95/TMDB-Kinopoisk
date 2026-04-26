@@ -1,13 +1,12 @@
-import type {
-  PopularFilmsResponse
-} from "@/features/films/api/filmsApi.types.ts";
+import type {Movie} from "@/features/films/api/filmsApi.types.ts";
 import {SearchBar} from "@/common/components/SearchBar/SearchBar.tsx";
 import s from "./WelcomeSection.module.css";
 import {useEffect, useState} from "react";
+import {ImagesUrl} from "@/common/constants";
 
 
 type Props = {
-  popularFilms: PopularFilmsResponse;
+  popularFilms: Movie[];
 }
 
 export const WelcomeSection = ({popularFilms}: Props) => {
@@ -16,7 +15,7 @@ export const WelcomeSection = ({popularFilms}: Props) => {
 
   useEffect(() => {
 
-    const moviesWithBackdrop = popularFilms.results.filter(
+    const moviesWithBackdrop = popularFilms.filter(
       (movie) => movie.backdrop_path !== null
     );
     if (moviesWithBackdrop.length === 0) return;
@@ -26,7 +25,7 @@ export const WelcomeSection = ({popularFilms}: Props) => {
     const randomMovie = moviesWithBackdrop[randomIndex];
 
 
-    const imageUrl = `https://image.tmdb.org/t/p/original${randomMovie.backdrop_path}`;
+    const imageUrl = `${ImagesUrl}${randomMovie.backdrop_path}`;
 
     setBackgroundImage(imageUrl)
 

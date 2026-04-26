@@ -1,8 +1,15 @@
 export const Path = {
   Main: '/',
-  CategoryMovies: 'movies/popular',
+  PopularMovies: 'movies/popular',
   FilteredMovies: '/filtered-movies',
   Search: '/search',
   Favorites: '/favorites',
+  Movie: '/movie/',
   NotFound: '*',
+  TopRatedMovies: '/movies/top_rated',
+  UpcomingMovies: '/movies/upcoming',
+  NowPlayingMovies: '/movies/now_playing',
 } as const
+
+
+export const ImagesUrl = "https://image.tmdb.org/t/p/original"

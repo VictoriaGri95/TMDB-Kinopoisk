@@ -15,14 +15,14 @@ export type Movie = {
   vote_count: number;
 }
 
-export type PopularFilmsResponse = {
+export type FilmsResponse = {
   page: number;
   results: Movie[];
   total_pages: number;
   total_results: number;
 }
 
-export type FetchPopularFilmsParams = {
+export type FetchFilmsParams = {
   language?: string;
   page?: number;
   region?: string;

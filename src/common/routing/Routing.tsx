@@ -17,7 +17,7 @@ export const Routing = () => {
         element={<MainPage />}
       />
       <Route
-        path={Path.CategoryMovies}
+        path={Path.PopularMovies}
         element={<CategoryPage />}
       />
       <Route

@@ -8,7 +8,7 @@ interface NavMenuProps {
 
 const navItems = [
   {to: Path.Main, label: 'Main'},
-  {to: Path.CategoryMovies, label: 'Category movies'},
+  {to: Path.PopularMovies, label: 'Category movies'},
   {to: Path.FilteredMovies, label: 'Filtered movies'},
   {to: Path.Search, label: 'Search'},
   {to: Path.Favorites, label: 'Favorites'},

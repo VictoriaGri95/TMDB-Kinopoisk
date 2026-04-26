@@ -12,8 +12,8 @@ export const MainPage = () => {
   }
   return (
     <main>
-      <WelcomeSection popularFilms={popularFilms} />
-      <MoviesSection />
+      <WelcomeSection popularFilms={popularFilms.results} />
+      <MoviesSection popularFilms={popularFilms.results} />
     </main>
   );
 };
