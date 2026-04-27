@@ -1,8 +1,8 @@
 import type {Movie} from "@/features/films/api/filmsApi.types.ts";
-import {SearchBar} from "@/common/components/SearchBar/SearchBar.tsx";
 import s from "./WelcomeSection.module.css";
 import {useEffect, useState} from "react";
 import {ImagesUrl} from "@/common/constants";
+import {SearchBar} from "@/common/components";
 
 
 type Props = {

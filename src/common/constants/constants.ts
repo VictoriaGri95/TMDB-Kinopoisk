@@ -9,6 +9,7 @@ export const Path = {
   TopRatedMovies: '/movies/top_rated',
   UpcomingMovies: '/movies/upcoming',
   NowPlayingMovies: '/movies/now_playing',
+  CategoryMovies: '/movies',
 } as const
 
 

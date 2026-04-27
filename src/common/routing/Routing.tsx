@@ -1,4 +1,4 @@
-import {Route, Routes} from "react-router";
+import {Navigate, Route, Routes} from "react-router";
 import {Path} from "@/common/constants";
 import {
   CategoryPage,
@@ -17,9 +17,21 @@ export const Routing = () => {
         element={<MainPage />}
       />
       <Route
-        path={Path.PopularMovies}
+        path={Path.CategoryMovies}
+        element={<Navigate
+          to={Path.PopularMovies}
+          replace
+        />}
+      />
+      {/*<Route*/}
+      {/*  path={Path.PopularMovies}*/}
+      {/*  element={<CategoryPage />}*/}
+      {/*/>*/}
+      <Route
+        path="/movies/:category"
         element={<CategoryPage />}
       />
+
       <Route
         path={Path.FilteredMovies}
         element={<FilterPage />}

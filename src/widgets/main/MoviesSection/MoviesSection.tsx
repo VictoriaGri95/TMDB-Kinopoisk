@@ -14,8 +14,6 @@ type Props = {
 }
 
 
-
-
 export const MoviesSection = ({popularFilms}: Props) => {
   const {data: upcomingFilms} = useFetchUpcomingFilmsQuery({})
   const {data: nowPlayingFilms} = useFetchNowPlayingFilmsQuery({})
@@ -45,17 +43,21 @@ export const MoviesSection = ({popularFilms}: Props) => {
   ];
 
 
-
-
   return (
     <div>
       <div className={s.container}>
         {sections.map((section) => (
-          <section key={section.title} className={s.section}>
+          <section
+            key={section.title}
+            className={s.section}
+          >
             <div className={s.header}>
               <h2>{section.title}</h2>
               <Link to={section.viewAllLink}>
-                <button type="button" className={s.viewMoreBtn}>
+                <button
+                  type="button"
+                  className={s.viewMoreBtn}
+                >
                   View more
                 </button>
               </Link>
@@ -63,13 +65,15 @@ export const MoviesSection = ({popularFilms}: Props) => {
 
             <div className={s.moviesGrid}>
               {section.movies?.slice(0, 6).map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
+                <MovieCard
+                  key={movie.id}
+                  movie={movie}
+                />
               ))}
             </div>
           </section>
         ))}
       </div>
-
 
 
     </div>

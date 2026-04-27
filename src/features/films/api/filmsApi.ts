@@ -54,4 +54,9 @@ export const FilmsApi = baseApi.injectEndpoints({
   })
 })
 
-export const {useFetchPopularFilmsQuery, useFetchUpcomingFilmsQuery, useFetchNowPlayingFilmsQuery, useFetchTopRatedFilmsQuery} = FilmsApi
+export const {
+  useFetchPopularFilmsQuery,
+  useFetchUpcomingFilmsQuery,
+  useFetchNowPlayingFilmsQuery,
+  useFetchTopRatedFilmsQuery
+} = FilmsApi
