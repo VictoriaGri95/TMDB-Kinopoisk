@@ -32,7 +32,7 @@
 .input:focus {
   background-color: rgba(0, 0, 0, 0.6);
   border-color: #5ba7bd;
-  box-shadow: 0 0 0 2px rgba(9, 229, 229, 0.3);
+  box-shadow: 0 0 0 2px rgba(9, 203, 229, 0.3);
 }
 
 .button {
@@ -50,7 +50,7 @@
 }
 
 .button:hover:not(:disabled) {
-  background-color: #2a646b;
+  background-color: #0b7e9d;
   transform: scale(1.02);
 }
 

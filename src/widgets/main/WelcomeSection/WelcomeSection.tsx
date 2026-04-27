@@ -1,6 +1,5 @@
 import type {Movie} from "@/features/films/api/filmsApi.types.ts";
 import s from "./WelcomeSection.module.css";
-import {useEffect, useState} from "react";
 import {ImagesUrl} from "@/common/constants";
 import {SearchBar} from "@/common/components";
 
@@ -10,26 +9,17 @@ type Props = {
 }
 
 export const WelcomeSection = ({popularFilms}: Props) => {
-  const [backgroundImage, setBackgroundImage] = useState<string>("");
+
+  const moviesWithBackdrop = popularFilms.filter(
+    (movie) => movie.backdrop_path
+  );
 
 
-  useEffect(() => {
+  const randomIndex = Math.floor(Math.random() * moviesWithBackdrop.length);
+  const randomMovie = moviesWithBackdrop[randomIndex];
 
-    const moviesWithBackdrop = popularFilms.filter(
-      (movie) => movie.backdrop_path !== null
-    );
-    if (moviesWithBackdrop.length === 0) return;
+  const backgroundImage = randomMovie ? `${ImagesUrl}${randomMovie.backdrop_path}` : '';
 
-
-    const randomIndex = Math.floor(Math.random() * moviesWithBackdrop.length);
-    const randomMovie = moviesWithBackdrop[randomIndex];
-
-
-    const imageUrl = `${ImagesUrl}${randomMovie.backdrop_path}`;
-
-    setBackgroundImage(imageUrl)
-
-  }, [popularFilms]);
 
   return (
     <div

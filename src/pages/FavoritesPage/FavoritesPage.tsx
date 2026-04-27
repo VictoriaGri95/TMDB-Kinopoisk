@@ -1,37 +1,13 @@
-import {useEffect, useState} from "react";
-import type {Movie} from "@/features/films/api/filmsApi.types.ts";
 import {MovieCard} from "@/features/films/ui/MovieCard/MovieCard.tsx";
 import s from './FavoritesPage.module.css'
+import {useAppSelector} from "@/common/hooks";
+import {selectFavorites} from "@/features/favorites/model/favorites-slice.ts";
 
 export const FavoritesPage = () => {
-  const [favorites, setFavorites] = useState<Movie[]>([]);
-
-  useEffect(() => {
-    loadFavorites();
 
 
-    window.addEventListener("favoritesChanged", loadFavorites)
+  const favorites = useAppSelector(selectFavorites)
 
-
-    return () =>  window.removeEventListener("favoritesChanged", loadFavorites)
-  }, []);
-
-
-  const loadFavorites = () => {
-    const stored = localStorage.getItem('favorites');
-    if (stored) {
-      setFavorites(JSON.parse(stored));
-    }
-  };
-
-  //
-  // if (favorites.length === 0) {
-  //   return (
-  //     <div className={s.empty}>
-  //       <p>Add movies to favorites to see them on this page.</p>
-  //     </div>
-  //   );
-  // }
   return (
     <div className={s.container}>
       <h2>Favorites</h2>

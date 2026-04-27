@@ -22,16 +22,16 @@
 
 .viewMoreBtn {
   padding: 8px 16px;
-  background: #007bff;
+  background: #40a3c0;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background 0.2s;
 }
 
 .viewMoreBtn:hover {
-  background: #0056b3;
+  background: #0b7e9d;
 }
 
 .moviesGrid {

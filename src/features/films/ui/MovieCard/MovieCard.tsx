@@ -2,7 +2,12 @@ import {ImagesUrl, Path} from "@/common/constants";
 import type {Movie} from "@/features/films/api/filmsApi.types.ts";
 import s from './MovieCard.module.css';
 import {Link} from "react-router";
-import {useEffect, useState} from "react";
+import {useState} from "react";
+import {useAppDispatch, useAppSelector} from "@/common/hooks";
+import {
+  selectIsFavorite,
+  toggleFavorite
+} from "@/features/favorites/model/favorites-slice.ts";
 
 
 type MovieCardProps = {
@@ -11,34 +16,17 @@ type MovieCardProps = {
 
 
 export const MovieCard = ({movie}: MovieCardProps) => {
-  const [isFavorite, setIsFavorite] = useState(false)
   const [isHovered, setIsHovered] = useState(false);
 
-  useEffect(() => {
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    const isFav = favorites.some((fav: Movie) => fav.id === movie.id);
-    setIsFavorite(isFav)
-  }, [movie.id]);
+  const dispatch = useAppDispatch();
+  const isFavorite = useAppSelector((state) =>
+    selectIsFavorite(state, movie.id)
+  )
+
 
   const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-
-    let newFavorites: Movie[]
-
-    if (!isFavorite) {
-      newFavorites = [...favorites, movie];
-      // localStorage.setItem('favorites', JSON.stringify(newFavorites));
-      setIsFavorite(true);
-    } else {
-
-      newFavorites = favorites.filter((favorite: Movie) => favorite.id !== movie.id)
-      // localStorage.setItem('favorites', JSON.stringify(newFavorites));
-      setIsFavorite(false);
-    }
-
-    localStorage.setItem("favorites", JSON.stringify(newFavorites))
-    window.dispatchEvent(new Event("favoritesChanged"))
+    dispatch(toggleFavorite(movie));
   }
 
 
@@ -60,7 +48,7 @@ export const MovieCard = ({movie}: MovieCardProps) => {
           className={s.poster}
         />
         <span className={s.rating}>{rating}</span>
-        {isHovered && (
+        {(isHovered || isFavorite) && (
           <button
             type='button'
             onClick={onClickHandler}
