@@ -1,9 +1,10 @@
 import {createSlice, type PayloadAction} from '@reduxjs/toolkit'
-import type {Movie} from "@/features/films/api/filmsApi.types.ts";
+
 import {
   getFavorites,
   setFavorites
 } from "@/features/favorites/lib/favoritesStorage.ts";
+import type {Movie} from "@/features/films/api/filmsApi.types";
 
 
 type FavoritesState = {
@@ -24,14 +25,9 @@ export const favoriteSlice = createSlice({
   },
   reducers: {
     toggleFavorite(state, action: PayloadAction<Movie>) {
-      const exists = state.items.some(
-        (movie) => movie.id === action.payload.id
-      )
-
-      if (exists) {
-        state.items = state.items.filter(
-          (movie) => movie.id !== action.payload.id
-        )
+      const index = state.items.findIndex(movie => movie.id === action.payload.id)
+      if (index !== -1) {
+        state.items.splice(index, 1)
       } else {
         state.items.push(action.payload)
       }

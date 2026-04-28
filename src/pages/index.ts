@@ -1,3 +1,5 @@
+export {MoviePage} from "./MoviePage/MoviePage.tsx";
+
 export {FavoritesPage} from "./FavoritesPage/FavoritesPage.tsx";
 export {FilterPage} from "./FilterPage/FilterPage.tsx";
 export {SearchPage} from "./SearchPage/SearchPage.tsx";

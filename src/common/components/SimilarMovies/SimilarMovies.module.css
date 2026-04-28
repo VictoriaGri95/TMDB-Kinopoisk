@@ -1,0 +1,30 @@
+.similarSection {
+  margin-bottom: 2rem;
+
+}
+
+.sectionTitle {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+.moviesGrid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(150px, 1fr));
+  gap: 1.5rem;
+}
+
+.emptyMessage {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .moviesGrid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+}

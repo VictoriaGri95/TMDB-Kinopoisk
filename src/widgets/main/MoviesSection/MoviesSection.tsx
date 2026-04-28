@@ -44,38 +44,34 @@ export const MoviesSection = ({popularFilms}: Props) => {
 
 
   return (
-    <div>
-      <div className={s.container}>
-        {sections.map((section) => (
-          <section
-            key={section.title}
-            className={s.section}
-          >
-            <div className={s.header}>
-              <h2>{section.title}</h2>
-              <Link to={section.viewAllLink}>
-                <button
-                  type="button"
-                  className={s.viewMoreBtn}
-                >
-                  View more
-                </button>
-              </Link>
-            </div>
+    <div className={s.container}>
+      {sections.map((section) => (
+        <section
+          key={section.title}
+          className={s.section}
+        >
+          <div className={s.header}>
+            <h2>{section.title}</h2>
+            <Link to={section.viewAllLink}>
+              <button
+                type="button"
+                className={s.viewMoreBtn}
+              >
+                View more
+              </button>
+            </Link>
+          </div>
 
-            <div className={s.moviesGrid}>
-              {section.movies?.slice(0, 6).map((movie) => (
-                <MovieCard
-                  key={movie.id}
-                  movie={movie}
-                />
-              ))}
-            </div>
-          </section>
-        ))}
-      </div>
-
-
+          <div className={s.moviesGrid}>
+            {section.movies?.slice(0, 6).map((movie) => (
+              <MovieCard
+                key={movie.id}
+                movie={movie}
+              />
+            ))}
+          </div>
+        </section>
+      ))}
     </div>
   );
 };

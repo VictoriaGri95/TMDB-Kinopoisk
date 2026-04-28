@@ -4,7 +4,7 @@ import {
   CategoryPage,
   FavoritesPage,
   FilterPage,
-  MainPage, PageNotFound,
+  MainPage, MoviePage, PageNotFound,
   SearchPage
 } from "@/pages";
 
@@ -23,10 +23,7 @@ export const Routing = () => {
           replace
         />}
       />
-      {/*<Route*/}
-      {/*  path={Path.PopularMovies}*/}
-      {/*  element={<CategoryPage />}*/}
-      {/*/>*/}
+
       <Route
         path="/movies/:category"
         element={<CategoryPage />}
@@ -44,10 +41,19 @@ export const Routing = () => {
         path={Path.Favorites}
         element={<FavoritesPage />}
       />
+      {/*<Route*/}
+      {/*  path={Path.Movie}*/}
+      {/*  element={<MoviePage />}*/}
+      {/*/>*/}
+      <Route
+        path={Path.MovieDetails}
+        element={<MoviePage />}
+      />
       <Route
         path={Path.NotFound}
         element={<PageNotFound />}
       />
+
     </Routes>
   );
 };

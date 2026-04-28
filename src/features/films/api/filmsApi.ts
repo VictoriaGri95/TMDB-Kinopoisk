@@ -1,7 +1,10 @@
 import {baseApi} from "@/app/api/baseApi.ts";
 import type {
+  CreditsResponse,
   FetchFilmsParams,
-  FilmsResponse
+  FetchMovieDetailsParams,
+  FilmsResponse,
+  MovieDetails
 } from "@/features/films/api/filmsApi.types.ts";
 
 
@@ -50,6 +53,44 @@ export const FilmsApi = baseApi.injectEndpoints({
           region: params.region || 'PL',
         },
       })
+    }),
+    fetchMovieDetails: build.query<MovieDetails, {
+      movieId: string;
+      params?: FetchMovieDetailsParams
+    }>({
+      query: ({movieId, params}) => ({
+        url: `/3/movie/${movieId}`,
+        method: 'GET',
+        params: {
+          language: params?.language || 'en-US',
+          append_to_response: params?.append_to_response || undefined,
+        },
+      }),
+    }),
+    fetchMovieCredits: build.query<CreditsResponse, {
+      movieId: string;
+      params?: FetchMovieDetailsParams
+    }>({
+      query: ({movieId, params}) => ({
+        url: `/3/movie/${movieId}/credits`,
+        method: 'GET',
+        params: {
+          language: params?.language || 'en-US',
+        }
+      })
+    }),
+    fetchSimilarMovies: build.query<FilmsResponse, {
+      movieId: string,
+      params?: FetchFilmsParams
+    }>({
+      query: ({movieId, params}) => ({
+        url: `/3/movie/${movieId}/similar`,
+        method: 'GET',
+        params: {
+          language: params?.language || 'en-US',
+          page: params?.page || 1,
+        }
+      })
     })
   })
 })
@@ -58,5 +99,8 @@ export const {
   useFetchPopularFilmsQuery,
   useFetchUpcomingFilmsQuery,
   useFetchNowPlayingFilmsQuery,
-  useFetchTopRatedFilmsQuery
+  useFetchTopRatedFilmsQuery,
+  useFetchMovieDetailsQuery,
+  useFetchMovieCreditsQuery,
+  useFetchSimilarMoviesQuery,
 } = FilmsApi

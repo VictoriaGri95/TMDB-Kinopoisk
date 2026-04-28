@@ -22,7 +22,7 @@ export const WelcomeSection = ({popularFilms}: Props) => {
 
 
   return (
-    <div
+    <section
       className={s.welcomeSection}
       style={{
         backgroundImage: backgroundImage ? `url(${backgroundImage})` : "none",
@@ -37,6 +37,6 @@ export const WelcomeSection = ({popularFilms}: Props) => {
         <h2 className={s.subtitle}>Browse highlighted titles from TMDB</h2>
         <SearchBar />
       </div>
-    </div>
+    </section>
   );
 };

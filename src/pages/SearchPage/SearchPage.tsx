@@ -1,8 +1,11 @@
+import {SearchBar} from "@/common/components";
+
 export const SearchPage = () => {
   return (
-    <div>
+    <section>
       <h2>Search</h2>
-    </div>
+      <SearchBar />
+    </section>
   );
 };
 

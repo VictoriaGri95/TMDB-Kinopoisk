@@ -1,8 +1,8 @@
 export const FilterPage = () => {
   return (
-    <div>
+    <section>
       <h2>Filtered movies</h2>
-    </div>
+    </section>
   );
 };
 

@@ -9,7 +9,7 @@ export const FavoritesPage = () => {
   const favorites = useAppSelector(selectFavorites)
 
   return (
-    <div className={s.container}>
+    <section className={s.container}>
       <h2>Favorites</h2>
       {favorites.length !== 0 ? (
         <div className={s.grid}>
@@ -26,7 +26,7 @@ export const FavoritesPage = () => {
         </div>
       )}
 
-    </div>
+    </section>
   );
 };
 

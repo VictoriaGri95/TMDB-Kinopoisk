@@ -66,7 +66,7 @@ export const CategoryPage = () => {
   }
 
   return (
-    <div className={s.container}>
+    <section className={s.container}>
       <h1 className={s.title}>Movies Catalog</h1>
       <CategoryBar />
       <h2 className={s.categoryTitle}>{getTitle()}</h2>
@@ -78,6 +78,6 @@ export const CategoryPage = () => {
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 };

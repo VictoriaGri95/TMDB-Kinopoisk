@@ -4,7 +4,8 @@ export const Path = {
   FilteredMovies: '/filtered-movies',
   Search: '/search',
   Favorites: '/favorites',
-  Movie: '/movie/',
+  // Movie: '/movie/',
+  MovieDetails: '/movie/:id',
   NotFound: '*',
   TopRatedMovies: '/movies/top_rated',
   UpcomingMovies: '/movies/upcoming',
@@ -14,3 +15,4 @@ export const Path = {
 
 
 export const ImagesUrl = "https://image.tmdb.org/t/p/original"
+
