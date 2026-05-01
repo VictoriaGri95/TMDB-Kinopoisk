@@ -4,16 +4,26 @@ import {
 } from "@/features/films/api/filmsApi.ts";
 import {SortBy, type SortByType} from "@/common/enums";
 import { useState} from "react";
-import {RangeSlider} from "@/common/components";
+import {Pagination, RangeSlider} from "@/common/components";
 import s from "./FilterPage.module.css";
 import {MovieCard} from "@/features/films/ui/MovieCard/MovieCard.tsx";
+import {useDebounceValue} from "@/common/hooks";
+import {SORT_OPTIONS} from "@/common/constants";
+
+
+
+
 
 export const FilterPage = () => {
 
   const [sortBy, setSortBy] = useState<SortByType>(SortBy.POPULARITY_DESC);
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
   const [ratingRange, setRatingRange] = useState<[number, number]>([0, 10]);
-  const [min, max] = ratingRange;
+
+  const debounceRange = useDebounceValue(ratingRange)
+  const [min, max] = debounceRange;
+
+
 
   const {data: discoverMoviesData} = useFetchDiscoverMoviesQuery({
     sort_by: sortBy,
@@ -40,17 +50,6 @@ export const FilterPage = () => {
   const toggleGenre = (id: number) => {
     setSelectedGenres((prev) => prev.includes(id) ? prev.filter((g) => g !== id) : [...prev, id])
   }
-
-  const SORT_OPTIONS = [
-    { value: "popularity.desc", label: "Popularity ↓" },
-    { value: "popularity.asc", label: "Popularity ↑" },
-    { value: "vote_average.desc", label: "Rating ↓" },
-    { value: "vote_average.asc", label: "Rating ↑" },
-    { value: "primary_release_date.desc", label: "Release Date ↓" },
-    { value: "primary_release_date.asc", label: "Release Date ↑" },
-    { value: "original_title.asc", label: "Title A-Z" },
-    { value: "original_title.desc", label: "Title Z-A" },
-  ] as const
 
   return (
     <section className={s.container}>
@@ -101,6 +100,11 @@ export const FilterPage = () => {
             <MovieCard key={movie.id} movie={movie} />
           ))}
         </div>
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pagesCount={data?.total_pages || 1}
+        />
       </div>
     </section>
   );

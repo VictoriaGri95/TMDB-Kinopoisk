@@ -26,13 +26,13 @@ export const MovieCard = ({movie}: MovieCardProps) => {
   const handleMouseEnter = useCallback(() => setIsHovered(true), []);
   const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
-  const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleFavoriteToggle = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     dispatch(toggleFavorite(movie));
-  }
+  }, [dispatch, movie]);
 
 
-  const rating = getRating(movie?.vote_average)
+  const rating = getRating(movie.vote_average)
 
   return (
     <article
@@ -45,7 +45,7 @@ export const MovieCard = ({movie}: MovieCardProps) => {
         className={s.posterLink}
       >
         <img
-          src={movie?.poster_path ? `${ImagesUrl}${movie.poster_path}` : "https://placehold.co/400x600/1a1a1c/ffffff?text=No+Poster"}
+          src={movie.poster_path ? `${ImagesUrl}${movie.poster_path}` : "https://placehold.co/400x600/1a1a1c/ffffff?text=No+Poster"}
           alt={movie.title}
           className={s.poster}
         />
@@ -54,7 +54,7 @@ export const MovieCard = ({movie}: MovieCardProps) => {
       {(isHovered || isFavorite) && (
         <button
           type='button'
-          onClick={onClickHandler}
+          onClick={handleFavoriteToggle}
           className={`${s.favButton} ${isFavorite ? s.active : ''}`}
           aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
         >

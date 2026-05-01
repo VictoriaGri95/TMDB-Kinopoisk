@@ -1,3 +1,4 @@
+export {Pagination} from "./Pagination/Pagination.tsx";
 export {RangeSlider} from "./RangeSlider/RangeSlider.tsx";
 export {Footer} from "./Footer/Footer.tsx";
 export {SimilarMovies} from "./SimilarMovies/SimilarMovies.tsx";
