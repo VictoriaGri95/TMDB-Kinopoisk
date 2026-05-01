@@ -16,11 +16,11 @@ export const MoviePage = () => {
 
   const {
     data: movie
-  } = useFetchMovieDetailsQuery({movieId}, {skip: !id});
+  } = useFetchMovieDetailsQuery(movieId, {skip: !id});
 
-  const {data: credit} = useFetchMovieCreditsQuery({movieId}, {skip: !id});
+  const {data: credit} = useFetchMovieCreditsQuery(movieId, {skip: !id});
 
-  const {data: similarMovies} = useFetchSimilarMoviesQuery({movieId}, {skip: !id});
+  const {data: similarMovies} = useFetchSimilarMoviesQuery(movieId, {skip: !id});
 
   if (!id) {
     return <div>Movie not found</div>;

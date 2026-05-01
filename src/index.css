@@ -8,12 +8,37 @@ body.light {
 body.dark {
   --bg: #1a1a1c;
   --text: #ffffff;
+  --footer-bg: #1a1a1c;
+  --text-secondary: #a0a0a0;
+  --border-color: #333333;
 }
 
+:root {
+  --footer-bg: #f8f9fa;
+  --text-secondary: #6c757d;
+  --border-color: #dee2e6;
+}
 
 body {
   background-color: var(--bg);
   color: var(--text);
   margin: 0;
   font-family: sans-serif;
+
+}
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
 }

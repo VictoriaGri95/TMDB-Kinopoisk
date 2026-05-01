@@ -1,4 +1,5 @@
 //списки фильмов
+import type {SortByType} from "@/common/enums";
 
 export type Movie = {
   adult: boolean;
@@ -24,11 +25,31 @@ export type FilmsResponse = {
   total_results: number;
 }
 
+export type RatingFilter = {
+  gte?: number;
+  lte?: number;
+}
+
 export type FetchFilmsParams = {
   language?: string;
   page?: number;
   region?: string;
+  sort_by?: SortByType;
+  vote_average_gte?: number;
+  vote_average_lte?: number;
+  with_genres?: string;
+  append_to_response?: string;
+  include_adult?: boolean;
+  primary_release_year?: string;
+  year?: string;
 }
+
+
+export type SearchMoviesParams = {
+  query: string;
+  params?: FetchFilmsParams;
+}
+
 
 // детали
 
@@ -37,16 +58,17 @@ export type Genre = {
   name: string;
 }
 
+export type GenresResponse = {
+  genres: Genre[];
+}
+
 export type ProductionCompany = {
   id: number;
   logo_path: string | null;
   name: string;
   origin_country: string;
 }
-export type FetchMovieDetailsParams = {
-  language?: string;
-  append_to_response?: string;
-}
+
 export type ProductionCountry = {
   iso_3166_1: string;
   name: string;
@@ -194,3 +216,6 @@ export type CreditsResponse = {
   cast: Cast[];
   crew: Crew[];
 }
+
+
+

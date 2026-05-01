@@ -2,9 +2,8 @@ import {baseApi} from "@/app/api/baseApi.ts";
 import type {
   CreditsResponse,
   FetchFilmsParams,
-  FetchMovieDetailsParams,
-  FilmsResponse,
-  MovieDetails
+  FilmsResponse, GenresResponse,
+  MovieDetails, SearchMoviesParams
 } from "@/features/films/api/filmsApi.types.ts";
 
 
@@ -14,83 +13,78 @@ export const FilmsApi = baseApi.injectEndpoints({
       query: (params) => ({
         url: '/3/movie/popular',
         method: 'GET',
-        params: {
-          language: params.language || 'en-US',
-          page: params.page || 1,
-          region: params.region || 'PL',
-        },
-      })
+        params,
+      }),
+      providesTags: ['films']
     }),
     fetchTopRatedFilms: build.query<FilmsResponse, FetchFilmsParams>({
       query: (params) => ({
         url: '/3/movie/top_rated',
         method: 'GET',
-        params: {
-          language: params.language || 'en-US',
-          page: params.page || 1,
-          region: params.region || 'PL',
-        },
-      })
+        params,
+      }),
+      providesTags: ['films']
     }),
     fetchUpcomingFilms: build.query<FilmsResponse, FetchFilmsParams>({
       query: (params) => ({
         url: '/3/movie/upcoming',
         method: 'GET',
-        params: {
-          language: params.language || 'en-US',
-          page: params.page || 1,
-          region: params.region || 'PL',
-        },
-      })
+        params,
+      }),
+      providesTags: ['films']
     }),
     fetchNowPlayingFilms: build.query<FilmsResponse, FetchFilmsParams>({
       query: (params) => ({
         url: '/3/movie/now_playing',
         method: 'GET',
-        params: {
-          language: params.language || 'en-US',
-          page: params.page || 1,
-          region: params.region || 'PL',
-        },
-      })
+        params,
+      }),
+      providesTags: ['films']
     }),
-    fetchMovieDetails: build.query<MovieDetails, {
-      movieId: string;
-      params?: FetchMovieDetailsParams
-    }>({
-      query: ({movieId, params}) => ({
+    fetchMovieDetails: build.query<MovieDetails, string>({
+      query: (movieId) => ({
         url: `/3/movie/${movieId}`,
         method: 'GET',
-        params: {
-          language: params?.language || 'en-US',
-          append_to_response: params?.append_to_response || undefined,
-        },
       }),
+      providesTags: ['films'],
     }),
-    fetchMovieCredits: build.query<CreditsResponse, {
-      movieId: string;
-      params?: FetchMovieDetailsParams
-    }>({
-      query: ({movieId, params}) => ({
+    fetchMovieCredits: build.query<CreditsResponse, string>({
+      query: (movieId) => ({
         url: `/3/movie/${movieId}/credits`,
         method: 'GET',
-        params: {
-          language: params?.language || 'en-US',
-        }
-      })
+      }),
+      providesTags: ['films'],
     }),
-    fetchSimilarMovies: build.query<FilmsResponse, {
-      movieId: string,
-      params?: FetchFilmsParams
-    }>({
-      query: ({movieId, params}) => ({
+    fetchSimilarMovies: build.query<FilmsResponse, string>({
+      query: (movieId) => ({
         url: `/3/movie/${movieId}/similar`,
         method: 'GET',
+      }),
+      providesTags: ['films'],
+    }),
+    fetchSearchMovies: build.query<FilmsResponse, SearchMoviesParams>({
+      query: (params) => ({
+        url: `/3/search/movie`,
+        method: "GET",
         params: {
-          language: params?.language || 'en-US',
-          page: params?.page || 1,
-        }
+          query: params.query,
+        },
+      }),
+      providesTags: ['films'],
+    }),
+    fetchDiscoverMovies: build.query<FilmsResponse, FetchFilmsParams>({
+      query: (params) => ({
+        url: `/3/discover/movie`,
+        method: 'GET',
+        params,
       })
+    }),
+    fetchMovieListByGenre: build.query<GenresResponse, void>({
+      query: () => ({
+        url: `/3/genre/movie/list`,
+        method: 'GET',
+      }),
+      providesTags: ['films'],
     })
   })
 })
@@ -103,4 +97,7 @@ export const {
   useFetchMovieDetailsQuery,
   useFetchMovieCreditsQuery,
   useFetchSimilarMoviesQuery,
+  useFetchSearchMoviesQuery,
+  useFetchDiscoverMoviesQuery,
+  useFetchMovieListByGenreQuery
 } = FilmsApi

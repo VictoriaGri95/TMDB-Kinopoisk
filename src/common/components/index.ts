@@ -1,3 +1,5 @@
+export {RangeSlider} from "./RangeSlider/RangeSlider.tsx";
+export {Footer} from "./Footer/Footer.tsx";
 export {SimilarMovies} from "./SimilarMovies/SimilarMovies.tsx";
 export {CastList} from "./CastList/CastList.tsx";
 export {MovieInfo} from "./MovieInfo/MovieInfo.tsx";
