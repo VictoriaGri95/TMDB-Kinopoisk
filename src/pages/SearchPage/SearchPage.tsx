@@ -1,18 +1,20 @@
-import {SearchBar} from "@/common/components";
+import {Pagination, SearchBar} from "@/common/components";
 import {useSearchParams} from "react-router";
 import {
   useFetchSearchMoviesQuery,
 } from "@/features/films/api/filmsApi.ts";
 import s from './SearchPage.module.css';
 import {MovieCard} from "@/features/films/ui/MovieCard/MovieCard.tsx";
+import {useState} from "react";
 
 
 export const SearchPage = () => {
 
   const [searchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1)
   const query = searchParams.get('query') || '';
   const {data, isLoading} = useFetchSearchMoviesQuery(
-    {query},
+    {query, params: {page: currentPage}},
     {skip: !query}
   );
 
@@ -66,6 +68,11 @@ export const SearchPage = () => {
           />
         ))}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        pagesCount={data?.total_pages || 1}
+      />
     </section>
   );
 };

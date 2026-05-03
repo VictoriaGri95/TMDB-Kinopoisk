@@ -66,9 +66,7 @@ export const FilmsApi = baseApi.injectEndpoints({
       query: (params) => ({
         url: `/3/search/movie`,
         method: "GET",
-        params: {
-          query: params.query,
-        },
+        params,
       }),
       providesTags: ['films'],
     }),

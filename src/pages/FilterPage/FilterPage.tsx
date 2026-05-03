@@ -3,15 +3,11 @@ import {
   useFetchMovieListByGenreQuery
 } from "@/features/films/api/filmsApi.ts";
 import {SortBy, type SortByType} from "@/common/enums";
-import { useState} from "react";
-import {Pagination, RangeSlider} from "@/common/components";
+import {useState} from "react";
+import {Pagination, Sidebar} from "@/common/components";
 import s from "./FilterPage.module.css";
 import {MovieCard} from "@/features/films/ui/MovieCard/MovieCard.tsx";
 import {useDebounceValue} from "@/common/hooks";
-import {SORT_OPTIONS} from "@/common/constants";
-
-
-
 
 
 export const FilterPage = () => {
@@ -24,86 +20,75 @@ export const FilterPage = () => {
   const [min, max] = debounceRange;
 
 
+  const [currentPage, setCurrentPage] = useState(1)
 
   const {data: discoverMoviesData} = useFetchDiscoverMoviesQuery({
     sort_by: sortBy,
-    vote_average_gte: min  > 0 ? min  : undefined,
+    vote_average_gte: min > 0 ? min : undefined,
     vote_average_lte: max < 10 ? max : undefined,
     with_genres: selectedGenres.length ? selectedGenres.join(',') : undefined,
+    page: currentPage,
   })
 
   const {data: genresData} = useFetchMovieListByGenreQuery()
-
 
 
   const resetFilters = () => {
     setSortBy(SortBy.POPULARITY_DESC);
     setRatingRange([0, 10]);
     setSelectedGenres([]);
+    setCurrentPage(1)
+
   };
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value as SortByType
-    setSortBy(value)
-  }
 
-  const toggleGenre = (id: number) => {
-    setSelectedGenres((prev) => prev.includes(id) ? prev.filter((g) => g !== id) : [...prev, id])
-  }
+  const handleSortChange = (value: SortByType) => {
+    setSortBy(value);
+    setCurrentPage(1);
+  };
+
+  const handleGenreToggle = (id: number) => {
+    setSelectedGenres((prev) =>
+      prev.includes(id) ? prev.filter((g) => g !== id) : [...prev, id]
+    );
+    setCurrentPage(1);
+  };
+
+  const handleRatingChange = (range: [number, number]) => {
+    setRatingRange(range);
+  };
+
 
   return (
     <section className={s.container}>
-        <aside className={s.sidebar}>
-          <h2>Filters / Sort</h2>
-          <div>
-            <label>
-              Sort by
-              <select
-                value={sortBy}
-                onChange={onChangeHandler}
-                className={s.select}
-              >
-                {SORT_OPTIONS.map(({ value, label }) => (
-                  <option key={value} value={value}>{label}</option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <div>
-            <span>Rating</span>
-            <RangeSlider  values={ratingRange}
-                          onChange={setRatingRange} />
-          </div>
-          <div className={s.genres}>
-            {genresData?.genres.map((genre) => (
-              <button
-                key={genre.id}
-                onClick={() => toggleGenre(genre.id)}
-                className={`${s.genreButton} ${
-                    selectedGenres.includes(genre.id) ? s.active : ""
-                  }`}
-              >{genre.name}</button>
-            ))}
-          </div>
-          <div>
-            <button type={'button'} onClick={resetFilters} className={s.resetBtn}>
-              Reset filters
-            </button>
-          </div>
-        </aside>
+
+      <Sidebar
+        sortBy={sortBy}
+        onSortChange={handleSortChange}
+        selectedGenres={selectedGenres}
+        onGenreToggle={handleGenreToggle}
+        ratingRange={ratingRange}
+        onRatingChange={handleRatingChange}
+        onReset={resetFilters}
+        genres={genresData?.genres}
+      />
+
       <div className={s.content}>
         {discoverMoviesData?.results.length === 0 && (
           <p>No movies found</p>
         )}
         <div className={s.grid}>
           {discoverMoviesData?.results.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
+            <MovieCard
+              key={movie.id}
+              movie={movie}
+            />
           ))}
         </div>
         <Pagination
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          pagesCount={data?.total_pages || 1}
+          pagesCount={discoverMoviesData?.total_pages || 1}
         />
       </div>
     </section>

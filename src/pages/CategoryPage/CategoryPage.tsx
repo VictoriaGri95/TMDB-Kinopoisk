@@ -9,13 +9,12 @@ import {MovieCard} from "@/features/films/ui/MovieCard/MovieCard.tsx";
 import s from './CategoryPage.module.css'
 
 
-
 type CategoryType = 'popular' | 'top_rated' | 'upcoming' | 'now_playing';
 
 const CATEGORY_META: Record<CategoryType, string> = {
-  popular:     'Popular Movies',
-  top_rated:   'Top Rated Movies',
-  upcoming:    'Upcoming Movies',
+  popular: 'Popular Movies',
+  top_rated: 'Top Rated Movies',
+  upcoming: 'Upcoming Movies',
   now_playing: 'Now Playing Movies',
 };
 
@@ -23,7 +22,7 @@ const VALID_CATEGORIES = Object.keys(CATEGORY_META) as CategoryType[];
 
 
 export const CategoryPage = () => {
-  const { category } = useParams<{ category: string }>();
+  const {category} = useParams<{ category: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const validCategory: CategoryType =
@@ -34,35 +33,34 @@ export const CategoryPage = () => {
   const currentPage = Number(searchParams.get('page') ?? '1');
 
   const setCurrentPage = (page: number) => {
-    setSearchParams({ page: String(page) });
+    setSearchParams({page: String(page)});
   };
 
-  const popularQuery    = useFetchPopularFilmsQuery(
-    { page: currentPage },
-    { skip: validCategory !== 'popular' }
+  const popularQuery = useFetchPopularFilmsQuery(
+    {page: currentPage},
+    {skip: validCategory !== 'popular'}
   );
-  const topRatedQuery   = useFetchTopRatedFilmsQuery(
-    { page: currentPage },
-    { skip: validCategory !== 'top_rated' }
+  const topRatedQuery = useFetchTopRatedFilmsQuery(
+    {page: currentPage},
+    {skip: validCategory !== 'top_rated'}
   );
-  const upcomingQuery   = useFetchUpcomingFilmsQuery(
-    { page: currentPage },
-    { skip: validCategory !== 'upcoming' }
+  const upcomingQuery = useFetchUpcomingFilmsQuery(
+    {page: currentPage},
+    {skip: validCategory !== 'upcoming'}
   );
   const nowPlayingQuery = useFetchNowPlayingFilmsQuery(
-    { page: currentPage },
-    { skip: validCategory !== 'now_playing' }
+    {page: currentPage},
+    {skip: validCategory !== 'now_playing'}
   );
 
   const queryMap: Record<CategoryType, typeof popularQuery> = {
-    popular:     popularQuery,
-    top_rated:   topRatedQuery,
-    upcoming:    upcomingQuery,
+    popular: popularQuery,
+    top_rated: topRatedQuery,
+    upcoming: upcomingQuery,
     now_playing: nowPlayingQuery,
   };
 
-  const { data, isLoading } = queryMap[validCategory];
-
+  const {data, isLoading} = queryMap[validCategory];
 
 
   if (isLoading) return <div className={s.loading}>Loading...</div>;

@@ -1,4 +1,3 @@
-
 import s from "./RangeSlider.module.css";
 import type {ChangeEvent} from "react";
 
