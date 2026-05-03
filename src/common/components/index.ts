@@ -1,3 +1,5 @@
+export {LinearProgress} from "./LinearProgress/LinearProgress.tsx";
+
 export {Sidebar} from "./Sidebar/Sidebar.tsx";
 export {Pagination} from "./Pagination/Pagination.tsx";
 export {RangeSlider} from "./RangeSlider/RangeSlider.tsx";

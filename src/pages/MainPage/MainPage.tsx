@@ -4,11 +4,11 @@ import {MoviesSection} from "@/widgets/main/MoviesSection/MoviesSection.tsx";
 
 export const MainPage = () => {
 
-  const {data: popularFilms, isLoading,} = useFetchPopularFilmsQuery({})
+  const {data: popularFilms} = useFetchPopularFilmsQuery({})
 
 
-  if (isLoading || !popularFilms) {
-    return <div>Loading...</div>
+  if (!popularFilms) {
+    return null;
   }
   return (
     <main>

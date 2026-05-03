@@ -60,11 +60,9 @@ export const CategoryPage = () => {
     now_playing: nowPlayingQuery,
   };
 
-  const {data, isLoading} = queryMap[validCategory];
+  const {data} = queryMap[validCategory];
 
 
-  if (isLoading) return <div className={s.loading}>Loading...</div>;
-  if (!data?.results) return <div className={s.empty}>No movies found</div>;
 
   return (
     <section className={s.container}>
@@ -72,7 +70,7 @@ export const CategoryPage = () => {
       <CategoryBar />
       <h2 className={s.categoryTitle}>{CATEGORY_META[validCategory]}</h2>
       <div className={s.grid}>
-        {data.results.map((movie) => (
+        {data?.results.map((movie) => (
           <MovieCard
             key={movie.id}
             movie={movie}
