@@ -78,11 +78,6 @@ src/
 - `VITE_API_KEY` - API key TMDB
 - `VITE_AUTH_TOKEN` - Read Access Token (Bearer)
 
-> Важно: не коммить реальные ключи и токены в репозиторий.
 
-## Улучшения, которые стоит сделать
 
-- Перенести работу с приватным токеном на backend/BFF (не хранить секреты во фронте)
-- Добавить unit/integration тесты (`Vitest` + `React Testing Library`)
-- Настроить CI (lint + build + tests)
-- Улучшить README скриншотами интерфейса
+
