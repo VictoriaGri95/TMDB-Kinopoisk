@@ -36,7 +36,9 @@ export const handleErrors = (error: FetchBaseQueryError) => {
         break
 
       case 404:
-        if (isErrorWithProperty(error.data, 'error')) {
+        if (isErrorWithProperty(error.data, 'status_message')) {
+          errorToast(error.data.status_message)
+        } else if (isErrorWithProperty(error.data, 'error')) {
           errorToast(error.data.error)
         } else {
           errorToast(JSON.stringify(error.data))

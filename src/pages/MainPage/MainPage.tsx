@@ -4,17 +4,17 @@ import {MoviesSection} from "@/widgets/main/MoviesSection/MoviesSection.tsx";
 
 export const MainPage = () => {
 
-  const {data: popularFilms} = useFetchPopularFilmsQuery({})
+  const {data: popularFilms, isFetching} = useFetchPopularFilmsQuery({});
 
+  const results = isFetching
+    ? Array.from({length: 6}, () => undefined)
+    : popularFilms?.results ?? [];
 
-  if (!popularFilms) {
-    return null;
-  }
   return (
     <main>
-      <WelcomeSection popularFilms={popularFilms.results} />
-      <MoviesSection popularFilms={popularFilms.results} />
+      <WelcomeSection popularFilms={isFetching ? [] : popularFilms?.results ?? []} />
+      <MoviesSection popularFilms={results} />
     </main>
   );
-};
 
+}

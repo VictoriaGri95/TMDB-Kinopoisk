@@ -3,7 +3,7 @@ import type {Movie} from "@/features/films/api/filmsApi.types";
 import s from "./SimilarMovies.module.css";
 
 type Props = {
-  movies: Movie[];
+  movies: (Movie | undefined)[];
 };
 
 
@@ -12,10 +12,10 @@ export const SimilarMovies = ({movies}: Props) => {
     <section className={s.similarSection}>
       <h2 className={s.sectionTitle}>Similar Movies</h2>
       <div className={s.moviesGrid}>
-        {movies?.map((movie) => (
+        {movies?.map((movie, i) => (
           <MovieCard
             movie={movie}
-            key={movie.id}
+            key={movie?.id ?? i}
           />
         ))}
       </div>

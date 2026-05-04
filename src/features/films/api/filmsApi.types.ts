@@ -1,29 +1,21 @@
-//списки фильмов
 import type {SortByType} from "@/common/enums";
+import {
+  CastSchema, CreditsResponseSchema, CrewSchema,
+  FilmsResponseSchema, GenreSchema, GenresResponseSchema, MovieDetailsSchema,
+  type MovieSchema
+} from "@/features/films/model/films.schemas.ts";
+import {z} from "zod";
 
-export type Movie = {
-  adult: boolean;
-  backdrop_path: string | null;
-  genre_ids: number[];
-  id: number;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string | null;
-  release_date: string;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-}
 
-export type FilmsResponse = {
-  page: number;
-  results: Movie[];
-  total_pages: number;
-  total_results: number;
-}
+export type Movie = z.infer<typeof MovieSchema>;
+export type FilmsResponse = z.infer<typeof FilmsResponseSchema>;
+export type Genre = z.infer<typeof GenreSchema>;
+export type GenresResponse = z.infer<typeof GenresResponseSchema>;
+export type MovieDetails = z.infer<typeof MovieDetailsSchema>;
+export type Cast = z.infer<typeof CastSchema>;
+export type Crew = z.infer<typeof CrewSchema>;
+export type CreditsResponse = z.infer<typeof CreditsResponseSchema>;
+
 
 export type RatingFilter = {
   gte?: number;
@@ -51,17 +43,6 @@ export type SearchMoviesParams = {
 }
 
 
-// детали
-
-export type Genre = {
-  id: number;
-  name: string;
-}
-
-export type GenresResponse = {
-  genres: Genre[];
-}
-
 export type ProductionCompany = {
   id: number;
   logo_path: string | null;
@@ -86,36 +67,6 @@ export type BelongsToCollection = {
   poster_path: string;
   backdrop_path: string;
 }
-
-export type MovieDetails = {
-  adult: boolean;
-  backdrop_path: string | null;
-  belongs_to_collection: BelongsToCollection | null;
-  budget: number;
-  genres: Genre[];
-  homepage: string | null;
-  id: number;
-  imdb_id: string | null;
-  origin_country: string[];
-  original_language: string;
-  original_title: string;
-  overview: string | null;
-  popularity: number;
-  poster_path: string | null;
-  production_companies: ProductionCompany[];
-  production_countries: ProductionCountry[];
-  release_date: string;
-  revenue: number;
-  runtime: number | null;
-  spoken_languages: SpokenLanguage[];
-  status: string;
-  tagline: string | null;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-}
-
 
 //видео
 export type Video = {
@@ -179,43 +130,5 @@ export type ReviewsResponse = {
   total_pages: number;
   total_results: number;
 }
-
-// актеры
-
-export type Cast = {
-  adult: boolean;
-  gender: number | null;
-  id: number;
-  known_for_department: string;
-  name: string;
-  original_name: string;
-  popularity: number;
-  profile_path: string | null;
-  cast_id: number;
-  character: string;
-  credit_id: string;
-  order: number;
-}
-
-export type Crew = {
-  adult: boolean;
-  gender: number | null;
-  id: number;
-  known_for_department: string;
-  name: string;
-  original_name: string;
-  popularity: number;
-  profile_path: string | null;
-  credit_id: string;
-  department: string;
-  job: string;
-}
-
-export type CreditsResponse = {
-  id: number;
-  cast: Cast[];
-  crew: Crew[];
-}
-
 
 

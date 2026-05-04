@@ -13,10 +13,14 @@ export const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1)
   const query = searchParams.get('query') || '';
-  const {data, isLoading} = useFetchSearchMoviesQuery(
+  const {data, isFetching} = useFetchSearchMoviesQuery(
     {query, params: {page: currentPage}},
     {skip: !query}
   );
+
+  const items = isFetching
+    ? Array.from({length: 20}, () => undefined)
+    : data?.results;
 
   if (!query) {
     return (
@@ -31,7 +35,7 @@ export const SearchPage = () => {
   }
 
 
-  if (data && !data.results.length && !isLoading) {
+  if (data && !data.results.length && !isFetching) {
     return (
       <section className={s.container}>
         <h1 className={s.title}>Search Movies</h1>
@@ -61,9 +65,9 @@ export const SearchPage = () => {
       </div>
 
       <div className={s.grid}>
-        {data?.results.map((movie) => (
+        {items?.map((movie, i) => (
           <MovieCard
-            key={movie.id}
+            key={movie?.id ?? i}
             movie={movie}
           />
         ))}

@@ -22,7 +22,7 @@ export const FilterPage = () => {
 
   const [currentPage, setCurrentPage] = useState(1)
 
-  const {data: discoverMoviesData} = useFetchDiscoverMoviesQuery({
+  const {data: discoverMoviesData, isFetching} = useFetchDiscoverMoviesQuery({
     sort_by: sortBy,
     vote_average_gte: min > 0 ? min : undefined,
     vote_average_lte: max < 10 ? max : undefined,
@@ -30,7 +30,7 @@ export const FilterPage = () => {
     page: currentPage,
   })
 
-  const {data: genresData} = useFetchMovieListByGenreQuery()
+  const {data: genresData} = useFetchMovieListByGenreQuery(undefined)
 
 
   const resetFilters = () => {
@@ -58,10 +58,13 @@ export const FilterPage = () => {
     setRatingRange(range);
   };
 
+  const items = isFetching
+    ? Array.from({length: 20}, () => undefined)
+    : discoverMoviesData?.results;
+
 
   return (
     <section className={s.container}>
-
       <Sidebar
         sortBy={sortBy}
         onSortChange={handleSortChange}
@@ -74,13 +77,14 @@ export const FilterPage = () => {
       />
 
       <div className={s.content}>
-        {discoverMoviesData?.results.length === 0 && (
+        {!isFetching && discoverMoviesData?.results.length === 0 && (
           <p>No movies found</p>
         )}
+
         <div className={s.grid}>
-          {discoverMoviesData?.results.map((movie) => (
+          {items?.map((movie, i) => (
             <MovieCard
-              key={movie.id}
+              key={movie?.id ?? i}
               movie={movie}
             />
           ))}

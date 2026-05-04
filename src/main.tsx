@@ -9,10 +9,12 @@ import {ThemeProvider} from "@/common/providers";
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
+
     <Provider store={store}>
       <ThemeProvider>
         <App />
       </ThemeProvider>
     </Provider>
+
   </BrowserRouter>,
 )

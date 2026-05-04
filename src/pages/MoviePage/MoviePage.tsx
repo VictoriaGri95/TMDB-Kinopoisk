@@ -20,7 +20,10 @@ export const MoviePage = () => {
 
   const {data: credit} = useFetchMovieCreditsQuery(movieId, {skip: !id});
 
-  const {data: similarMovies} = useFetchSimilarMoviesQuery(movieId, {skip: !id});
+  const {
+    data: similarMovies,
+    isFetching: similarFetching
+  } = useFetchSimilarMoviesQuery(movieId, {skip: !id});
 
   if (!id) {
     return <div>Movie not found</div>;
@@ -28,7 +31,12 @@ export const MoviePage = () => {
 
 
   const topCast = getTopCast(credit?.cast || []);
-  const topSimilarMovies = getSimilarMovies(similarMovies?.results || [])
+
+  const topSimilarMovies = similarFetching
+    ? Array.from({length: 6}, () => undefined)
+    : getSimilarMovies(similarMovies?.results || []);
+
+
   return (
     <div className={s.container}>
       <MovieInfo movie={movie} />

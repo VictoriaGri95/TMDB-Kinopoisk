@@ -1,12 +1,14 @@
 import {
   useFetchNowPlayingFilmsQuery,
   useFetchPopularFilmsQuery,
-  useFetchTopRatedFilmsQuery, useFetchUpcomingFilmsQuery
+  useFetchTopRatedFilmsQuery,
+  useFetchUpcomingFilmsQuery
 } from "@/features/films/api/filmsApi.ts";
-import {useParams, useSearchParams} from "react-router";
+import {useParams} from "react-router";
 import {CategoryBar, Pagination} from "@/common/components";
 import {MovieCard} from "@/features/films/ui/MovieCard/MovieCard.tsx";
 import s from './CategoryPage.module.css'
+import {useState} from "react";
 
 
 type CategoryType = 'popular' | 'top_rated' | 'upcoming' | 'now_playing';
@@ -23,19 +25,17 @@ const VALID_CATEGORIES = Object.keys(CATEGORY_META) as CategoryType[];
 
 export const CategoryPage = () => {
   const {category} = useParams<{ category: string }>();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
 
   const validCategory: CategoryType =
     category && VALID_CATEGORIES.includes(category as CategoryType)
       ? (category as CategoryType)
       : 'popular';
 
-  const currentPage = Number(searchParams.get('page') ?? '1');
 
-  const setCurrentPage = (page: number) => {
-    setSearchParams({page: String(page)});
+  const handleCategoryClick = () => {
+    setCurrentPage(1);
   };
-
   const popularQuery = useFetchPopularFilmsQuery(
     {page: currentPage},
     {skip: validCategory !== 'popular'}
@@ -60,18 +60,21 @@ export const CategoryPage = () => {
     now_playing: nowPlayingQuery,
   };
 
-  const {data} = queryMap[validCategory];
+  const {data, isFetching} = queryMap[validCategory];
 
+  const items = isFetching
+    ? Array.from({length: 20}, () => undefined)
+    : data?.results;
 
   return (
     <section className={s.container}>
       <h1 className={s.title}>Movies Catalog</h1>
-      <CategoryBar />
+      <CategoryBar onCategoryClick={handleCategoryClick} />
       <h2 className={s.categoryTitle}>{CATEGORY_META[validCategory]}</h2>
       <div className={s.grid}>
-        {data?.results.map((movie) => (
+        {items?.map((movie, i) => (
           <MovieCard
-            key={movie.id}
+            key={movie ? movie.id : `skeleton-${i}`}
             movie={movie}
           />
         ))}

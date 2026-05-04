@@ -41,10 +41,6 @@ export const Routing = () => {
         path={Path.Favorites}
         element={<FavoritesPage />}
       />
-      {/*<Route*/}
-      {/*  path={Path.Movie}*/}
-      {/*  element={<MoviePage />}*/}
-      {/*/>*/}
       <Route
         path={Path.MovieDetails}
         element={<MoviePage />}

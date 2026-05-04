@@ -38,6 +38,7 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 20px;
+  min-height: 320px;
 }
 
 

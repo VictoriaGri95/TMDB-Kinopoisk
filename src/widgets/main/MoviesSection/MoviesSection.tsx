@@ -10,36 +10,52 @@ import {MovieCard} from "@/features/films/ui/MovieCard/MovieCard.tsx";
 import s from './MoviesSection.module.css';
 
 type Props = {
-  popularFilms: Movie[];
+  popularFilms: (Movie | undefined)[];
 }
 
 
 export const MoviesSection = ({popularFilms}: Props) => {
-  const {data: upcomingFilms} = useFetchUpcomingFilmsQuery({})
-  const {data: nowPlayingFilms} = useFetchNowPlayingFilmsQuery({})
-  const {data: topRatedFilms} = useFetchTopRatedFilmsQuery({})
+  const {
+    data: upcomingFilms,
+    isFetching: upcomingFetching
+  } = useFetchUpcomingFilmsQuery({});
+  const {
+    data: nowPlayingFilms,
+    isFetching: nowPlayingFetching
+  } = useFetchNowPlayingFilmsQuery({});
+  const {
+    data: topRatedFilms,
+    isFetching: topRatedFetching
+  } = useFetchTopRatedFilmsQuery({});
+
 
   const sections = [
     {
       title: 'Popular Movies',
-      movies: popularFilms,
-      viewAllLink: Path.PopularMovies
+      movies: popularFilms.slice(0, 6),
+      viewAllLink: Path.PopularMovies,
     },
     {
       title: 'Top Rated Movies',
-      movies: topRatedFilms?.results,
-      viewAllLink: Path.TopRatedMovies
+      movies: topRatedFetching
+        ? Array.from({length: 6}, () => undefined)
+        : topRatedFilms?.results.slice(0, 6),
+      viewAllLink: Path.TopRatedMovies,
     },
     {
       title: 'Upcoming Movies',
-      movies: upcomingFilms?.results,
-      viewAllLink: Path.UpcomingMovies
+      movies: upcomingFetching
+        ? Array.from({length: 6}, () => undefined)
+        : upcomingFilms?.results.slice(0, 6),
+      viewAllLink: Path.UpcomingMovies,
     },
     {
       title: 'Now Playing Movies',
-      movies: nowPlayingFilms?.results,
-      viewAllLink: Path.NowPlayingMovies
-    }
+      movies: nowPlayingFetching
+        ? Array.from({length: 6}, () => undefined)
+        : nowPlayingFilms?.results.slice(0, 6),
+      viewAllLink: Path.NowPlayingMovies,
+    },
   ];
 
 
@@ -63,9 +79,9 @@ export const MoviesSection = ({popularFilms}: Props) => {
           </div>
 
           <div className={s.moviesGrid}>
-            {section.movies?.slice(0, 6).map((movie) => (
+            {section.movies?.map((movie, i) => (
               <MovieCard
-                key={movie.id}
+                key={movie?.id ?? i}
                 movie={movie}
               />
             ))}
