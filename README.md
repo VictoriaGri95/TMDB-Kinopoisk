@@ -1,84 +1,88 @@
-# React + TypeScript + Vite
+# TMDB Kinopoisk
 
-This template provides a minimal setup to get React working in Vite with HMR and
-some ESLint rules.
+SPA для просмотра фильмов на базе TMDB API: каталог, поиск, фильтры, страница фильма и избранное.
 
-Currently, two official plugins are available:
+## Возможности
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react)
-  uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc)
-  uses [SWC](https://swc.rs/)
+- Категории фильмов: popular, top rated, upcoming, now playing
+- Поиск по названию
+- Фильтрация по рейтингу, жанрам и сортировке
+- Детальная страница фильма (инфо, актеры, похожие фильмы)
+- Избранное с сохранением в `localStorage`
+- Глобальный индикатор загрузки и уведомления об ошибках
+- Светлая и темная тема
 
-## React Compiler
+## Технологии
 
-The React Compiler is enabled on this template.
-See [this documentation](https://react.dev/learn/react-compiler) for more
-information.
+- `React` + `TypeScript`
+- `Vite`
+- `Redux Toolkit` + `RTK Query`
+- `React Router`
+- `Zod` для валидации ответов API
+- `CSS Modules`
 
-Note: This will impact Vite dev & build performances.
+## Быстрый старт
 
-## Expanding the ESLint configuration
+### 1) Установка зависимостей
 
-If you are developing a production application, we recommend updating the
-configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also
-install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x)
-and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom)
-for React-specific lint rules:
+### 2) Создай `.env.local`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_BASE_URL=https://api.themoviedb.org
+VITE_API_KEY=your_tmdb_api_key
+VITE_AUTH_TOKEN=your_tmdb_read_access_token
 ```
+
+### 3) Запуск в dev-режиме
+
+```bash
+npm run dev
+```
+
+Приложение будет доступно по адресу, который покажет Vite (обычно `http://localhost:5173`).
+
+## Скрипты
+
+- `npm run dev` - запуск dev-сервера
+- `npm run build` - сборка production-версии
+- `npm run preview` - локальный просмотр production-сборки
+- `npm run lint` - проверка ESLint
+
+## Роуты
+
+- `/` - главная
+- `/movies/:category` - фильмы по категории
+- `/filtered-movies` - фильтрация
+- `/search?query=...` - поиск
+- `/favorites` - избранное
+- `/movie/:id` - страница фильма
+
+## Структура проекта
+
+```text
+src/
+  app/        # store, api, корневой App
+  common/     # переиспользуемые компоненты, hooks, constants, utils
+  features/   # бизнес-фичи (films, favorites)
+  pages/      # страницы роутера
+  widgets/    # крупные секции страниц
+```
+
+## Переменные окружения
+
+- `VITE_BASE_URL` - базовый URL TMDB API
+- `VITE_API_KEY` - API key TMDB
+- `VITE_AUTH_TOKEN` - Read Access Token (Bearer)
+
+> Важно: не коммить реальные ключи и токены в репозиторий.
+
+## Улучшения, которые стоит сделать
+
+- Перенести работу с приватным токеном на backend/BFF (не хранить секреты во фронте)
+- Добавить unit/integration тесты (`Vitest` + `React Testing Library`)
+- Настроить CI (lint + build + tests)
+- Улучшить README скриншотами интерфейса
