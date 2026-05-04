@@ -1,19 +1,11 @@
-import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
+import {createApi} from "@reduxjs/toolkit/query/react";
+import {
+  baseQueryWithErrorHandling
+} from "@/app/api/baseQueryWithErrorHandling.ts";
 
 export const baseApi = createApi({
   reducerPath: "baseApi",
   tagTypes: ['films'],
-  baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_BASE_URL,
-    prepareHeaders: (headers) => {
-
-      headers.set(
-        "Authorization",
-        `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`
-      )
-      return headers
-
-    },
-  }),
+  baseQuery: baseQueryWithErrorHandling,
   endpoints: () => ({}),
 })

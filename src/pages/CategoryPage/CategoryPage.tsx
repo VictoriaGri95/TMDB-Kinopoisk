@@ -63,7 +63,6 @@ export const CategoryPage = () => {
   const {data} = queryMap[validCategory];
 
 
-
   return (
     <section className={s.container}>
       <h1 className={s.title}>Movies Catalog</h1>

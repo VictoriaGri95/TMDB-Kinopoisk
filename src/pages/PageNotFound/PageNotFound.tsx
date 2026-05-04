@@ -14,7 +14,10 @@ export const PageNotFound = () => {
     <div className={s.container}>
       <h1 className={s.title}>404</h1>
       <h2 className={s.subtitle}>page not found</h2>
-      <button onClick={handleGoHome} className={s.homeButton}>
+      <button
+        onClick={handleGoHome}
+        className={s.homeButton}
+      >
         Go to main
       </button>
     </div>
