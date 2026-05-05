@@ -3,6 +3,7 @@ import s from './NavMenu.module.css';
 import {Path} from "@/common/constants";
 
 interface NavMenuProps {
+  isOpen?: boolean;
   onItemClick?: () => void;
 }
 
@@ -14,9 +15,9 @@ const navItems = [
   {to: Path.Favorites, label: 'Favorites'},
 ];
 
-export const NavMenu = ({onItemClick}: NavMenuProps) => {
+export const NavMenu = ({isOpen = false, onItemClick}: NavMenuProps) => {
   return (
-    <ul className={s.list}>
+    <ul className={`${s.list} ${isOpen ? s.listOpen : ""}`}>
       {navItems.map(item => (
         <li key={item.to}>
           <NavLink

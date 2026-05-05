@@ -1,6 +1,8 @@
 .movieCard {
   position: relative;
+  width: 100%;
   max-width: 200px;
+  min-width: 0;
   transition: transform 0.2s;
 }
 
@@ -15,6 +17,7 @@
 
 .posterWrapper {
   position: relative;
+  width: 100%;
   border-radius: 8px;
   aspect-ratio: 2 / 3;
   overflow: hidden;
@@ -94,7 +97,7 @@
   aspect-ratio: 2 / 3;
   width: 100%;
   border-radius: 8px;
-  min-height: 285px; /* или любое фиксированное значение */
+  min-height: 285px;
   overflow: hidden;
 }
 
@@ -106,7 +109,7 @@
 
 @media (max-width: 768px) {
   .movieCard {
-    max-width: 150px;
+    max-width: 100%;
   }
 
   .favButton {

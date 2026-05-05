@@ -1,9 +1,14 @@
 .list {
   display: flex;
-  gap: 32px;
+  gap: 16px;
   margin: 0;
   padding: 0;
   list-style: none;
+  flex-wrap: nowrap;
+}
+
+.listOpen {
+  display: flex;
 }
 
 .list a {
@@ -15,6 +20,7 @@
   white-space: nowrap;
   padding: 8px 16px;
   border-radius: 99px;
+  display: inline-block;
 }
 
 .list a:hover {
@@ -36,26 +42,58 @@ body.dark .activeLink {
   background-color: rgba(255, 255, 255, 0.06);
 }
 
+/* Адаптив для планшетов и средних экранов */
+@media (max-width: 1024px) {
 
-@media (max-width: 768px) {
+  .list a {
+    font-size: 16px;
+    padding: 6px 8px;
+  }
+}
+
+@media (max-width: 880px) {
   .list {
     gap: 8px;
   }
 
   .list a {
     font-size: 14px;
-    padding: 6px 12px;
+    padding: 6px 10px;
   }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 768px) {
   .list {
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 20px;
+    right: 20px;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-md);
+    background: var(--bg);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    z-index: 120;
   }
 
-  .list::-webkit-scrollbar {
-    display: none;
+  .listOpen {
+    display: flex;
+  }
+
+  .list a {
+    display: block;
+    font-size: 15px;
+    padding: 10px 12px;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 480px) {
+  .list {
+    left: 16px;
+    right: 16px;
   }
 }
